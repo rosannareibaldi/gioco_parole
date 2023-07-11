@@ -17,21 +17,28 @@ def replace_values(stringa, stringa_nascosta, char):
 
 
 # Scelta del livello: facciamo selezionare da utente sia la difficoltà delle parole che il numero di tentativi con cui
-# giocare
+# giocare. Implementiamo un while per gestire gli input non validi.
 livello = input("Scegli il livello di difficoltà fra 1, 2, 3:\n1->Facile\n2->Medio\n3->Difficile")
 while livello not in ['1', '2', '3']:
     print("Hai inserito un valore non valido. Scegli un livello valido.")
     livello = input("Scegli il livello di difficoltà fra 1, 2, 3:\n1->Facile\n2->Medio\n3->Difficile")
 
 livello_diff = {
-    "1": {"parole": ['ciao', 'bello', 'brutto', 'sole'], "n_tentativi": 8},
-    "2": {"parole": ['castello', 'lampadina', 'scaffale', 'forbice', 'habitat'], "n_tentativi": 7},
-    "3": {"parole": ["weekend", "bajour", "disarcivescovizzare"], "n_tentativi": 6}
+    "1": {"parole": ['ciao', 'bello', 'brutto', 'sole'], "n_tentativi": 8, "level": "EASY"},
+    "2": {"parole": ['castello', 'lampadina', 'scaffale', 'forbice', 'habitat'], "n_tentativi": 7, "level": "MEDIUM"},
+    "3": {"parole": ["weekend", "bajour", "disarcivescovizzare"], "n_tentativi": 6, "level": "HARD"}
 }
-
 
 lista_parole = livello_diff[livello]["parole"]
 n_tentativi = livello_diff[livello]["n_tentativi"]
+
+# Benvenuto
+print("===================================")
+print(f"BENVENUTO ALL'IMPICCATO!!!!")
+print(f"GIOCHERAI IN MODALITA' {livello_diff[livello]['level']}")
+print(f"HAI A DISPOSIZIONE {n_tentativi} tentativi")
+print("===================================\n")
+
 
 # Scegliamo una parola a caso fra quelle della lista_parole
 parola = random.choice(lista_parole)
@@ -44,7 +51,7 @@ contatore = 0
 
 # Ciclo while: continua finchè ho tentativi rimanenti e non ho indovinato la parola
 while contatore < n_tentativi and '_' in parola_nascosta:
-    print(f"parola da indovinare: {''.join(parola_nascosta)}")
+    print(f"parola da indovinare: {''.join(parola_nascosta)}\n")
 
     # Chiediamo di inserire una lettera all'utente
     lettera = input("Inserisci una lettera con cui giocare: ").lower()
@@ -56,11 +63,11 @@ while contatore < n_tentativi and '_' in parola_nascosta:
         # for i, l in enumerate(parola):
         #     if l == lettera:
         #         parola_nascosta[i] = lettera
-        print("Bravo, la lettera è presente nella parola!\n")
+        print("Bravo, la lettera è presente nella parola!")
 
     else:
         contatore += 1
-        print(f"Lettera non presente. Hai ancora {n_tentativi - contatore} tentativi.\n")
+        print(f"Lettera non presente. Hai ancora {n_tentativi - contatore} tentativi.")
 
 
 if parola_nascosta == list(parola):
